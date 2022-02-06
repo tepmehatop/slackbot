@@ -1,17 +1,13 @@
 const { App } = require('@slack/bolt');
 
-/* 
-This sample slack application uses SocketMode
-For the companion getting started setup guide, 
-see: https://slack.dev/bolt-js/tutorial/getting-started 
-*/
-
-// Initializes your app with your bot token and app token
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
-  socketMode: false,
-  appToken: process.env.SLACK_SIGNING_SECRET
+  signingSecret: process.env.SLACK_SIGNING_SECRET
 });
+
+(async () => {
+  await app.start(process.env.PORT || 8000);
+})();
 
 // Listens to incoming messages that contain "hello"
 app.message('hello', async ({ message, say }) => {
