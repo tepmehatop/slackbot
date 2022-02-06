@@ -9,8 +9,8 @@ see: https://slack.dev/bolt-js/tutorial/getting-started
 // Initializes your app with your bot token and app token
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
-  socketMode: true,
-  appToken: process.env.SLACK_APP_TOKEN
+  socketMode: false,
+  appToken: process.env.SLACK_SIGNING_SECRET
 });
 
 // Listens to incoming messages that contain "hello"
