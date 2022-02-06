@@ -7,6 +7,8 @@ const app = new App({
 
 (async () => {
   await app.start(process.env.PORT || 8000);
+
+  console.log('⚡️ Bolt app is running!');
 })();
 
 // Listens to incoming messages that contain "hello"
@@ -39,10 +41,3 @@ app.action('button_click', async ({ body, ack, say }) => {
   await ack();
   await say(`<@${body.user.id}> clicked the button`);
 });
-
-(async () => {
-  // Start your app
-  await app.start(process.env.PORT || 5000);
-
-  console.log('⚡️ Bolt app is running!');
-})();
