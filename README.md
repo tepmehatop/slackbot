@@ -64,4 +64,4 @@ See you there and thanks for helping to improve Bolt for everyone!
 [1]: https://slack.dev/bolt-js/tutorial/getting-started
 [2]: https://slack.dev/bolt-js/
 [3]: https://slack.dev/bolt-js/tutorial/getting-started#setting-up-events
-[4]: https://github.com/slackapi/bolt-js/issues/new
+[4]: https://github.com/slackapi/bolt-js/issues/new# slackbot
