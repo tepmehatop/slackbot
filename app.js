@@ -255,7 +255,7 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
 
   const user = body['user']['id'];
   const name = body['user']['username'];
-  const results = await createWpUpdate(name,body);//my wordpress creation function
+  //const results = await createWpUpdate(name,body);//my wordpress creation function
 
   if (results){
     msg = 'Your update was successful.'
