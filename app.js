@@ -54,7 +54,11 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
       // Pass a valid trigger_id within 3 seconds of receiving it
       trigger_id: body.trigger_id,
       // View payload
+
       view: {
+        type: "modal",//what kind of thing is this
+        // View identifier
+        callback_id: "ticket-submit",//keep track of the callback id
         "title": {
           "type": "plain_text",
           "text": "App menu",
@@ -65,7 +69,6 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           "text": "Submit",
           "emoji": true
         },
-        "type": "modal",
         "close": {
           "type": "plain_text",
           "text": "Cancel",
@@ -240,4 +243,35 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
   catch (error) {
     logger.error(error);
   }
+});
+
+
+
+app.view('ticket-submit', async ({ ack, body, view, client }) => {
+  // Acknowledge the action
+  await ack();
+  console.log(JSON.stringify(body));//see the data getting passed
+  let msg = '';
+
+  const user = body['user']['id'];
+  const name = body['user']['username'];
+  const results = await createWpUpdate(name,body);//my wordpress creation function
+
+  if (results){
+    msg = 'Your update was successful.'
+  } else {
+    msg = 'I am a failure but I do not know why.'
+  }
+
+  //message the user
+  try {
+    await client.chat.postMessage({
+      channel: user,
+      text: msg
+    });
+  }
+  catch (error){
+    console.error(error);
+  }
+
 });
