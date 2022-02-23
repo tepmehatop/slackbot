@@ -263,34 +263,253 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   const user = body['user']['id'];
   const name = body['user']['username'];
   const values = view.state.values;
-  const results = values['blockers_links']['action_blockers_link']['value'];
+  const serviceName = values['service_type']['selected_option']['value'];
+  const selectedDate = values['selected_date']['datepicker-action']['selected_date'];
 
 
-  if (results){
-    msg = 'Your update was successful.' + results
-  } else {
-    msg = 'I am a failure but I do not know why.' + results
-  }
+
+  const blockerLink = values['blockers_links']['action_blockers_link']['value'];
+
+
 
   //message the user
   try {
     await client.chat.postMessage({
       channel: user,
-      blocks: [
+      "blocks": [
+        {
+          "type": "header",
+          "text": {
+            "type": "plain_text",
+            "text": ":rocket:  Release summary report  :rocket:"
+          }
+        },
+        {
+          "type": "context",
+          "elements": [
+            {
+              "text": "*"+ selectedDate +"* |  "+ serviceName + " релиз новостей 1.18.3",
+              "type": "mrkdwn"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
         {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": msg + `Трулю лю ther>!`
+            "text": "Командой тестирования был проведен регресс усройств *SberTime, SberBox и Portal*, ниже подготовлен отчет о найденых дефектах."
+          }
+        },
+        {
+          "type": "actions",
+          "elements": [
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "Релизный тикет",
+                "emoji": true
+              },
+              "style": "primary",
+              "value": "approve"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "AT отчет",
+                "emoji": true
+              },
+              "style": "danger",
+              "value": "decline"
+            },
+            {
+              "type": "button",
+              "text": {
+                "type": "plain_text",
+                "text": "Ручные прогоны",
+                "emoji": true
+              },
+              "value": "details"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "context",
+          "elements": [
+            {
+              "type": "image",
+              "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/13.0/apple-large/26d4@2x.png",
+              "alt_text": "Blocker"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Blocker*"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*<https://jira.sberbank.ru/browse/VC-5274|" +blockerLink+ ">*"
           },
           "accessory": {
-            "type": "button",
-            "text": {
-              "type": "plain_text",
-              "text": "Click Me"
-            },
-            "action_id": "button_click"
+            "type": "overflow",
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":white_check_mark: Mark as done",
+                  "emoji": true
+                },
+                "value": "done"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":pencil: Edit",
+                  "emoji": true
+                },
+                "value": "edit"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":x: Delete",
+                  "emoji": true
+                },
+                "value": "delete"
+              }
+            ]
           }
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "context",
+          "elements": [
+            {
+              "type": "image",
+              "image_url": "https://api.slack.com/img/blocks/bkb_template_images/highpriority.png",
+              "alt_text": "palm tree"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "*Critical*"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*<https://jira.sberbank.ru/browse/VC-5227|VC-5227 - Не удаляется виджет на устройствах>*"
+          },
+          "accessory": {
+            "type": "overflow",
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":white_check_mark: Mark as done",
+                  "emoji": true
+                },
+                "value": "done"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":pencil: Edit",
+                  "emoji": true
+                },
+                "value": "edit"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":x: Delete",
+                  "emoji": true
+                },
+                "value": "delete"
+              }
+            ]
+          }
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*<https://jira.sberbank.ru/browse/VC-5251|VC-5251 - Нельзя подвинуть сторис карточки между собой>*"
+          },
+          "accessory": {
+            "type": "overflow",
+            "options": [
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":white_check_mark: Mark as done",
+                  "emoji": true
+                },
+                "value": "done"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":pencil: Edit",
+                  "emoji": true
+                },
+                "value": "edit"
+              },
+              {
+                "text": {
+                  "type": "plain_text",
+                  "text": ":x: Delete",
+                  "emoji": true
+                },
+                "value": "delete"
+              }
+            ]
+          }
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*Остальные найденные минор и ниже по приоритету дефекты*\n<https://jira.sberbank.ru/browse/VC-5210?jql=project%20%3D%20VC%20AND%20issuetype%20%3[…]Отклонен%20исполнителем%22)%20AND%20component%20%3D%20widget|👉Список багов в Jira>"
+          }
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "context",
+          "elements": [
+            {
+              "type": "mrkdwn",
+              "text": "Список участников"
+            },
+            {
+              "type": "mrkdwn",
+              "text": "<fakelink.toUser.com|Павел Виноградов>, <fakelink.toUser.com|Туманов Александр>"
+            }
+          ]
         }
       ],
       text: `Шалость удалась there >!` + msg
