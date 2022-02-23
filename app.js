@@ -82,12 +82,14 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
               "text": ":gear: *Релиз cервиса*"
             },
             "accessory": {
+              "action_id": "select_service",
               "type": "static_select",
               "placeholder": {
                 "type": "plain_text",
                 "text": "Выбрать сервис",
                 "emoji": true
               },
+              "action_id": "select_services_options",
               "options": [
                 {
                   "text": {
@@ -263,7 +265,7 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   const user = body['user']['id'];
   const name = body['user']['username'];
   const values = view.state.values;
-  const serviceName = values['service_type']['selected_option']['value'];
+  const serviceName = values['service_type']['select_service']['select_services_options']['value'];
   const selectedDate = values['selected_date']['datepicker-action']['selected_date'];
 
 
