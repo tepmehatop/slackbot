@@ -265,7 +265,7 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   const user = body['user']['id'];
   const name = body['user']['username'];
   const values = view.state.values;
-  const serviceName = values['service_type']['select_service']['select_services_options']['value'];
+  const serviceName = values['service_type']['select_services_options']['selected_option']['value'];
   const selectedDate = values['selected_date']['datepicker-action']['selected_date'];
 
 
