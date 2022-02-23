@@ -264,7 +264,7 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   const name = body['user']['username'];
   const values = view.state.values;
   //const results = await createWpUpdate(name,body);//my wordpress creation function
-  const results = values['blockers_links']['action_blockers_link'];
+  const results = values['blockers_links']['action_blockers_link']['value'];
 
 
   if (results){
