@@ -281,7 +281,7 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": msg + `Трулю лю there <@${message.user}>!`
+            "text": msg + `Трулю лю ther>!`
           },
           "accessory": {
             "type": "button",
@@ -293,7 +293,7 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
           }
         }
       ],
-      text: `Шалость удалась there <@${message.user}>!` + msg
+      text: `Шалость удалась there >!` + msg
     });
   }
   catch (error){
