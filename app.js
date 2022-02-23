@@ -263,7 +263,6 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   const user = body['user']['id'];
   const name = body['user']['username'];
   const values = view.state.values;
-  //const results = await createWpUpdate(name,body);//my wordpress creation function
   const results = values['blockers_links']['action_blockers_link']['value'];
 
 
@@ -277,7 +276,24 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   try {
     await client.chat.postMessage({
       channel: user,
-      text: msg
+      blocks: [
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": msg + `Трулю лю there <@${message.user}>!`
+          },
+          "accessory": {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Click Me"
+            },
+            "action_id": "button_click"
+          }
+        }
+      ],
+      text: `Шалость удалась there <@${message.user}>!` + msg
     });
   }
   catch (error){
