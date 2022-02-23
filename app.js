@@ -94,7 +94,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
                 {
                   "text": {
                     "type": "plain_text",
-                    "text": "Frontend Новостей",
+                    "text": "Frontend",
                     "emoji": true
                   },
                   "value": "value-0"
@@ -102,7 +102,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
                 {
                   "text": {
                     "type": "plain_text",
-                    "text": "Webhook Новостей",
+                    "text": "Webhook",
                     "emoji": true
                   },
                   "value": "value-1"
@@ -110,7 +110,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
                 {
                   "text": {
                     "type": "plain_text",
-                    "text": "Картинкель Новостей",
+                    "text": "Картинкель",
                     "emoji": true
                   },
                   "value": "value-3"
@@ -118,7 +118,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
                 {
                   "text": {
                     "type": "plain_text",
-                    "text": "Процессинг Новостей",
+                    "text": "Процессинг",
                     "emoji": true
                   },
                   "value": "value-4"
@@ -265,12 +265,15 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   const user = body['user']['id'];
   const name = body['user']['username'];
   const values = view.state.values;
-  const serviceName = values['service_type']['select_services_options']['selected_option']['value'];
+  //const serviceName = values['service_type']['select_services_options']['selected_option']['value'];
+  const serviceName = values['service_type']['select_services_options']['selected_option']['text']['text'];
   const selectedDate = values['selected_date']['datepicker-action']['selected_date'];
-
-
-
+  const releaseLink = values['release_link']['action_release_link-action']['value'];
+  const atLink = values['at_link']['action_AT_link-action']['value'];
+  const manualLink = values['manual_test_link']['action_manual_runTest_link']['value'];
   const blockerLink = values['blockers_links']['action_blockers_link']['value'];
+  const critLink = values['critical_links']['action_critical_link']['value'];
+  const selectedQA = values['user_selected_qa']['multi_users_select-action']['selected_users'];
 
 
 
