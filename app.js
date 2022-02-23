@@ -56,9 +56,8 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
       // View payload
 
       view: {
-        type: "modal",//what kind of thing is this
-        // View identifier
-        callback_id: "ticket-submit",//keep track of the callback id
+        "type": "modal",
+        "callback_id": "ticket-submit",
         "title": {
           "type": "plain_text",
           "text": "App menu",
@@ -77,6 +76,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
         "blocks": [
           {
             "type": "section",
+            "block_id": "service_type",
             "text": {
               "type": "mrkdwn",
               "text": ":gear: *Релиз cервиса*"
@@ -126,6 +126,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           },
           {
             "type": "section",
+            "block_id": "selected_date",
             "text": {
               "type": "mrkdwn",
               "text": "Укажите дату релиза"
@@ -145,9 +146,10 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           },
           {
             "type": "input",
+            "block_id": "release_link",
             "element": {
               "type": "plain_text_input",
-              "action_id": "plain_text_input-action"
+              "action_id": "action_release_link"
             },
             "label": {
               "type": "plain_text",
@@ -157,9 +159,10 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           },
           {
             "type": "input",
+            "block_id": "at_link",
             "element": {
               "type": "plain_text_input",
-              "action_id": "plain_text_input-action"
+              "action_id": "action_AT_link"
             },
             "label": {
               "type": "plain_text",
@@ -169,9 +172,10 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           },
           {
             "type": "input",
+            "block_id": "manual_test_link",
             "element": {
               "type": "plain_text_input",
-              "action_id": "plain_text_input-action"
+              "action_id": "action_manual_runTest_link"
             },
             "label": {
               "type": "plain_text",
@@ -189,6 +193,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           },
           {
             "type": "input",
+            "block_id": "blockers_links",
             "element": {
               "type": "plain_text_input",
               "placeholder": {
@@ -197,7 +202,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
                 "emoji": true
               },
               "multiline": true,
-              "action_id": "plain_text_input-action"
+              "action_id": "action_blockers_link"
             },
             "label": {
               "type": "plain_text",
@@ -207,10 +212,11 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           },
           {
             "type": "input",
+            "block_id": "critical_links",
             "element": {
               "type": "plain_text_input",
               "multiline": true,
-              "action_id": "plain_text_input-action"
+              "action_id": "action_critical_link"
             },
             "label": {
               "type": "plain_text",
@@ -220,6 +226,7 @@ app.command('/ticket', async ({ ack, body, client, logger }) => {
           },
           {
             "type": "input",
+            "block_id": "user_selected_qa",
             "element": {
               "type": "multi_users_select",
               "placeholder": {
@@ -255,13 +262,15 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
 
   const user = body['user']['id'];
   const name = body['user']['username'];
+  const values = view.state.values;
   //const results = await createWpUpdate(name,body);//my wordpress creation function
-  const results = ['user']['id'];
+  const results = values['blockers_links']['action_blockers_link'];
+
 
   if (results){
-    msg = 'Your update was successful.'
+    msg = 'Your update was successful.' + results
   } else {
-    msg = 'I am a failure but I do not know why.'
+    msg = 'I am a failure but I do not know why.' + results
   }
 
   //message the user
