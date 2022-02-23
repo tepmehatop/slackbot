@@ -268,12 +268,12 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
   //const serviceName = values['service_type']['select_services_options']['selected_option']['value'];
   const serviceName = values['service_type']['select_services_options']['selected_option']['text']['text'];
   const selectedDate = values['selected_date']['datepicker-action']['selected_date'];
-  const releaseLink = values['release_link']['action_release_link-action']['value'];
-  const atLink = values['at_link']['action_AT_link-action']['value'];
-  const manualLink = values['manual_test_link']['action_manual_runTest_link']['value'];
+  // const releaseLink = values['release_link']['action_release_link-action']['value'];
+  // const atLink = values['at_link']['action_AT_link-action']['value'];
+  // const manualLink = values['manual_test_link']['action_manual_runTest_link']['value'];
   const blockerLink = values['blockers_links']['action_blockers_link']['value'];
-  const critLink = values['critical_links']['action_critical_link']['value'];
-  const selectedQA = values['user_selected_qa']['multi_users_select-action']['selected_users'];
+  // const critLink = values['critical_links']['action_critical_link']['value'];
+  // const selectedQA = values['user_selected_qa']['multi_users_select-action']['selected_users'];
 
 
 
