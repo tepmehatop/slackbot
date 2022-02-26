@@ -337,10 +337,10 @@ app.view('ticket-submit', async ({ ack, body, view, client }) => {
               "type": "button",
               "text": {
                 "type": "plain_text",
-                "url": manualLink,
                 "text": "Ручные прогоны",
                 "emoji": true
               },
+              "url": manualLink,
               "value": "details"
             }
           ]
